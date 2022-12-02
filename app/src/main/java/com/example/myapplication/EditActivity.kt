@@ -58,8 +58,8 @@ class EditActivity : AppCompatActivity() {
             //dbHelper.deleteTask(id)
             dbHelper.getById(id)?.id?.let { it1 -> dbHelper.deleteTask(it1) }
             val returnIntent = Intent()
-            returnIntent.putExtra(RESULT_KEY, newTitle)
-            returnIntent.putExtra(MainActivity.ITEM_ID_KEY, id)
+            returnIntent.putExtra(RESULT_KEY, id)
+           // returnIntent.putExtra(MainActivity.ITEM_ID_KEY, id)
             setResult(Activity.RESULT_OK, returnIntent)
             finish()
         }
