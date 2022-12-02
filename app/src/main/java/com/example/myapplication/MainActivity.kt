@@ -54,6 +54,17 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            // получение данных от Activity2
+            val id = data?.getLongExtra(EditActivity.RESULT_KEY ,0)
+            val index = list.indexOfFirst { it.id == id }
+            //val index2 = filtration_list.indexOfFirst { it.id == id }
+            list.removeAt(index)
+            //filtration_list.removeAt(index2)
+            adapter.notifyItemRemoved(index)
+            // в result лежит строка "тут какой-то результат (строка)"
+        }
+
+        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             val result = data?.getStringExtra(EditActivity.RESULT_KEY)
             val id = data?.getLongExtra(ITEM_ID_KEY, 0)
 
