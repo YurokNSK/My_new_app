@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -37,14 +38,26 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
-        val editText = findViewById<EditText>(R.id.editTextTextPersonName)
+        val editName = findViewById<EditText>(R.id.editTextTextPersonName)
+        val editNumber = findViewById<EditText>(R.id.editTextTextPersonNumber)
+        val editSurname = findViewById<EditText>(R.id.editTextTextPersonSurname)
+        val editDob = findViewById<EditText>(R.id.editTextTextPersonDob)
+
         val button = findViewById<Button>(R.id.button)
         button.setOnClickListener {
-            val title = editText.text.toString()
-            if (title.isNotBlank()) {
-                editText.text.clear()
-                val id = dbHelper.addTask(title, "","","")   //VAJNO!!!!
-                list.add(Task(id, title, "","",""))
+            val name = editName.text.toString()
+            val number = editNumber.text.toString()
+            val surname = editSurname.text.toString()
+            val dob = editDob.text.toString()
+
+            if (name.isNotBlank() || number.isNotBlank() || surname.isNotBlank() || dob.isNotBlank()) {
+                editName.text.clear()
+                editNumber.text.clear()
+                editSurname.text.clear()
+                editDob.text.clear()
+
+                val id = dbHelper.addTask(name, surname,number,dob)   //VAJNO!!!!
+                list.add(Task(id, name, surname,number,dob))
                 adapter.notifyItemInserted(list.lastIndex)
             }
         }
