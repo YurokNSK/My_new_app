@@ -4,9 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -15,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     private val list = mutableListOf<Task>()
     private val adapter = RecyclerAdapter(list)
     private val dbHelper = DBHelper(this)
-
+    var srch = ""
     companion object {
         const val REQUEST_CODE = 1
         const val ITEM_ID_KEY = "ITEM_ID_KEY"
@@ -34,7 +35,36 @@ class MainActivity : AppCompatActivity() {
             startActivityForResult(intent, REQUEST_CODE)
         }
 
+        ////////
+        val search = findViewById<EditText>(R.id.search)
+        search.addTextChangedListener(object: TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+                srch = s.toString()
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+
+            }
+        })
+
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+        search.addTextChangedListener(object:TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+                filtration(s.toString())
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+
+            }
+        })
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
@@ -60,6 +90,17 @@ class MainActivity : AppCompatActivity() {
                 list.add(Task(id, name, surname,number,dob))
                 adapter.notifyItemInserted(list.lastIndex)
             }
+        }
+    }
+
+    fun filtration(nanba:String){
+        if (nanba == ""){
+            adapter.updateList(list)
+        }else {
+            val filtration_list = list.filter { it.name.contains(nanba, true) ||
+                                                it.surname.contains(nanba, true)
+            }
+            adapter.updateList(filtration_list)
         }
     }
 

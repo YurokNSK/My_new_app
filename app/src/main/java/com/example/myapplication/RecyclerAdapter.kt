@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class RecyclerAdapter(
-    private val list: List<Task>
+    private var list: List<Task>
 ) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
     lateinit var onItemClick: (id: Int) -> Unit
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,6 +26,11 @@ class RecyclerAdapter(
 
     override fun getItemCount(): Int {
         return list.size
+    }
+
+    fun updateList(newList :List<Task>){
+        list = newList
+        this.notifyDataSetChanged()
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
