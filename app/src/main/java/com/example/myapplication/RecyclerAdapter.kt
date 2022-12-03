@@ -24,6 +24,7 @@ class RecyclerAdapter(
         }
     }
 
+
     override fun getItemCount(): Int {
         return list.size
     }

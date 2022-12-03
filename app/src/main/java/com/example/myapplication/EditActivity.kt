@@ -36,16 +36,16 @@ class EditActivity : AppCompatActivity() {
         windowLayout = findViewById(R.id.window)
 
         val id = intent.getLongExtra(MainActivity.ITEM_ID_KEY, 0)
-        val task = dbHelper.getById(id)
+        val user = dbHelper.getById(id)
         val editName = findViewById<EditText>(R.id.editName)
         val editNumber = findViewById<EditText>(R.id.editNumber)
         val editSurname = findViewById<EditText>(R.id.editSurname)
         val editDob = findViewById<EditText>(R.id.editDob)
 
-        editName.setText(task?.name)
-        editNumber.setText(task?.number)
-        editSurname.setText(task?.surname)
-        editDob.setText(task?.dob)
+        editName.setText(user?.name)
+        editNumber.setText(user?.number)
+        editSurname.setText(user?.surname)
+        editDob.setText(user?.dob)
 
 
         val buttonSave = findViewById<Button>(R.id.buttonSave)
