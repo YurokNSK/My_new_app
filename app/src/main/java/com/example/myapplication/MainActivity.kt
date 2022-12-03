@@ -43,8 +43,8 @@ class MainActivity : AppCompatActivity() {
             val title = editText.text.toString()
             if (title.isNotBlank()) {
                 editText.text.clear()
-                val id = dbHelper.addTask(title)
-                list.add(Task(id, title))
+                val id = dbHelper.addTask(title, "","","")   //VAJNO!!!!
+                list.add(Task(id, title, "","",""))
                 adapter.notifyItemInserted(list.lastIndex)
             }
         }
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_CANCELED) {
             // получение данных от Activity2
             val id = data?.getLongExtra(EditActivity.RESULT_KEY ,0)
             val index = list.indexOfFirst { it.id == id }
@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
             if (id != null && result != null) {
                 // change list item
                 val index = list.indexOfFirst { it.id == id }
-                list[index].title = result
+                list[index].name = result
                 // redraw list
                 adapter.notifyItemChanged(index)
             }

@@ -9,8 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/window"
-        android:layout_width="276dp"
-        android:layout_height="259dp"
+        android:layout_width="278dp"
+        android:layout_height="505dp"
         android:background="@drawable/bg_layout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,13 +42,14 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
-            android:id="@+id/editTextTextMultiLine"
+            android:id="@+id/editName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="28dp"
             android:ems="10"
             android:gravity="start|top"
+            android:hint="name"
             android:inputType="textMultiLine"
             android:minHeight="48dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -56,17 +57,48 @@
             tools:ignore="SpeakableTextPresentCheck" />
 
         <EditText
-            android:id="@+id/editTextTextMultiLine2"
+            android:id="@+id/editNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="33dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="12dp"
             android:ems="10"
             android:gravity="start|top"
+            android:hint="number"
             android:inputType="textMultiLine"
             android:minHeight="48dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine"
+            app:layout_constraintTop_toBottomOf="@+id/editName"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <EditText
+            android:id="@+id/editSurname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="surname"
+            android:inputType="textMultiLine"
+            android:minHeight="48dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editNumber"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <EditText
+            android:id="@+id/editDob"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="dob"
+            android:inputType="textMultiLine"
+            android:minHeight="48dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editSurname"
             tools:ignore="SpeakableTextPresentCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

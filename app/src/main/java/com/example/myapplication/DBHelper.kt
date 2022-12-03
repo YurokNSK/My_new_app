@@ -17,7 +17,11 @@ class DBHelper(context: Context?) :
         const val TABLE_NAME = "tasks"
         // названия полей
         const val KEY_ID = "id"
-        const val KEY_TITLE = "title"
+        const val NAME = "name"
+        const val SURNAME = "surname"
+        const val NUMBER = "number"
+        const val DOB = "dob"
+
     }
 
 
@@ -26,7 +30,10 @@ class DBHelper(context: Context?) :
         db.execSQL("""
             CREATE TABLE $TABLE_NAME (
             $KEY_ID INTEGER PRIMARY KEY AUTOINCREMENT,
-            $KEY_TITLE TEXT NOT NULL
+            $NAME TEXT NOT NULL,
+            $SURNAME TEXT NOT NULL,
+            $NUMBER TEXT NOT NULL,
+            $DOB TEXT NOT NULL
             )""")
     }
 
@@ -44,11 +51,17 @@ class DBHelper(context: Context?) :
         )
         if (cursor.moveToFirst()) {
             val idIndex: Int = cursor.getColumnIndex(KEY_ID)
-            val titleIndex: Int = cursor.getColumnIndex(KEY_TITLE)
+            val nameIndex: Int = cursor.getColumnIndex(NAME)
+            val surnameIndex: Int = cursor.getColumnIndex(SURNAME)
+            val numberIndex: Int = cursor.getColumnIndex(NUMBER)
+            val dobIndex: Int = cursor.getColumnIndex(DOB)
             do {
                 val todo = Task(
                     cursor.getLong(idIndex),
-                    cursor.getString(titleIndex)
+                    cursor.getString(nameIndex),
+                    cursor.getString(surnameIndex),
+                    cursor.getString(numberIndex),
+                    cursor.getString(dobIndex)
                 )
                 result.add(todo)
             } while (cursor.moveToNext())
@@ -66,29 +79,42 @@ class DBHelper(context: Context?) :
         )
         if (cursor.moveToFirst()) {
             val idIndex: Int = cursor.getColumnIndex(KEY_ID)
-            val titleIndex: Int = cursor.getColumnIndex(KEY_TITLE)
+            val nameIndex: Int = cursor.getColumnIndex(NAME)
+            val surnameIndex: Int = cursor.getColumnIndex(SURNAME)
+            val numberIndex: Int = cursor.getColumnIndex(NUMBER)
+            val dobIndex: Int = cursor.getColumnIndex(DOB)
+
             result = Task(
                 cursor.getLong(idIndex),
-                cursor.getString(titleIndex),
+                cursor.getString(nameIndex),
+                cursor.getString(surnameIndex),
+                cursor.getString(numberIndex),
+                cursor.getString(dobIndex)
             )
         }
         cursor.close()
         return result
     }
 
-    fun addTask(title: String): Long {
+    fun addTask(name: String, surname: String, number : String, dob: String): Long {
         val database = this.writableDatabase
         val contentValues = ContentValues()
-        contentValues.put(KEY_TITLE, title)
+        contentValues.put(NAME, name)
+        contentValues.put(SURNAME, surname)
+        contentValues.put(NUMBER, number)
+        contentValues.put(DOB, dob)
         val id = database.insert(TABLE_NAME, null, contentValues)
         close()
         return id
     }
 
-    fun updateTask(id: Long, title: String) {
+    fun updateTask(id: Long, name: String, surname: String, number : String, dob: String) {
         val database = this.writableDatabase
         val contentValues = ContentValues()
-        contentValues.put(KEY_TITLE, title)
+        contentValues.put(NAME, name)
+        contentValues.put(SURNAME, surname)
+        contentValues.put(NUMBER, number)
+        contentValues.put(DOB, dob)
         database.update(TABLE_NAME, contentValues, "$KEY_ID = ?", arrayOf(id.toString()))
         close()
     }

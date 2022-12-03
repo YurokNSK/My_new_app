@@ -37,14 +37,18 @@ class EditActivity : AppCompatActivity() {
 
         val id = intent.getLongExtra(MainActivity.ITEM_ID_KEY, 0)
         val task = dbHelper.getById(id)
-        val editText = findViewById<EditText>(R.id.editTextTextMultiLine)
-        editText.setText(task?.title)
+        val editName = findViewById<EditText>(R.id.editName)
+        val editNumber = findViewById<EditText>(R.id.editNumber)
+        val editSurname = findViewById<EditText>(R.id.editSurname)
+        val editDob = findViewById<EditText>(R.id.editDob)
+
+        editName.setText(task?.name)
 
 
         val buttonSave = findViewById<Button>(R.id.buttonSave)
         buttonSave.setOnClickListener {
-            val newTitle = editText.text.toString()
-            dbHelper.updateTask(id, newTitle)
+            val newTitle = editName.text.toString()
+            dbHelper.updateTask(id, newTitle, "","","")
             val returnIntent = Intent()
             returnIntent.putExtra(RESULT_KEY, newTitle)
             returnIntent.putExtra(MainActivity.ITEM_ID_KEY, id)
@@ -54,13 +58,13 @@ class EditActivity : AppCompatActivity() {
 
         val buttonDelete = findViewById<Button>(R.id.buttonDelete)
         buttonDelete.setOnClickListener {
-            val newTitle = editText.text.toString()
+            val newTitle = editName.text.toString()
             //dbHelper.deleteTask(id)
             dbHelper.getById(id)?.id?.let { it1 -> dbHelper.deleteTask(it1) }
             val returnIntent = Intent()
             returnIntent.putExtra(RESULT_KEY, id)
            // returnIntent.putExtra(MainActivity.ITEM_ID_KEY, id)
-            setResult(Activity.RESULT_OK, returnIntent)
+            setResult(Activity.RESULT_CANCELED, returnIntent)
             finish()
         }
 
