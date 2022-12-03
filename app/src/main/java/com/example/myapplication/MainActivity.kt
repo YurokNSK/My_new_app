@@ -90,6 +90,7 @@ class MainActivity : AppCompatActivity() {
                 list.add(Task(id, name, surname,number,dob))
                 adapter.notifyItemInserted(list.lastIndex)
             }
+
         }
     }
 
